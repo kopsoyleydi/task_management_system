@@ -13,6 +13,6 @@ import java.util.List;
 @Transactional
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    @Query(value = "SELECT t FROM Task t where t.user.email = :email")
+    @Query(value = "SELECT t FROM Task t where t.author.email = :email")
     List<Task> getTasksByUser(String email);
 }
