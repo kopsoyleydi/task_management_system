@@ -38,7 +38,7 @@ public class Task extends BaseModel{
     private List<Comment> comment;
 
     @ManyToOne
-    private User user;
+    private User author;
 
     @ManyToMany
     private List<User> performers;
