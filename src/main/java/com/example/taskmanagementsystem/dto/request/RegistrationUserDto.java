@@ -1,4 +1,4 @@
-package com.example.taskmanagementsystem.dto.response;
+package com.example.taskmanagementsystem.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

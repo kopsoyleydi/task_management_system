@@ -1,6 +1,5 @@
 package com.example.taskmanagementsystem.models;
 
-import com.example.taskmanagementsystem.models.BaseModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

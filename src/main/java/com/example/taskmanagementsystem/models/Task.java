@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tasks")
 @Getter
@@ -30,4 +32,16 @@ public class Task extends BaseModel{
     @Column(name = "priority")
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
+
+    @JoinColumn(name = "task_id")
+    @OneToMany
+    private List<Comment> comment;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToMany
+    private List<User> performers;
+
+
 }

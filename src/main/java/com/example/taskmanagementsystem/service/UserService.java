@@ -4,7 +4,7 @@ package com.example.taskmanagementsystem.service;
 import com.example.taskmanagementsystem.data.repoInter.impl.PermissionsImpl;
 import com.example.taskmanagementsystem.data.repoInter.impl.UserImpl;
 import com.example.taskmanagementsystem.dto.request.AuthRequest;
-import com.example.taskmanagementsystem.dto.response.RegistrationUserDto;
+import com.example.taskmanagementsystem.dto.request.RegistrationUserDto;
 import com.example.taskmanagementsystem.models.User;
 import com.example.taskmanagementsystem.utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
