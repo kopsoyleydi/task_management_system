@@ -5,6 +5,8 @@ import com.example.taskmanagementsystem.data.repoInter.impl.PermissionsImpl;
 import com.example.taskmanagementsystem.data.repoInter.impl.UserImpl;
 import com.example.taskmanagementsystem.dto.request.AuthRequest;
 import com.example.taskmanagementsystem.dto.request.RegistrationUserDto;
+import com.example.taskmanagementsystem.dto.response.UserDto;
+import com.example.taskmanagementsystem.mapper.UserMapper;
 import com.example.taskmanagementsystem.models.User;
 import com.example.taskmanagementsystem.utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserMapper userMapper;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,25 +51,25 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public User getCurrentSessionUser() {
+    public UserDto getCurrentSessionUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return (User) authentication.getPrincipal();
+            return (UserDto) authentication.getPrincipal();
         }
         return null;
     }
 
-    public User findByUsername(String username) {
-        return userImpl.getUserByEmail(username);
+    public UserDto findByUsername(String username) {
+        return userMapper.toDto(userImpl.getUserByEmail(username));
     }
 
-    public User createNewUser(RegistrationUserDto registrationUserDto){
+    public UserDto createNewUser(RegistrationUserDto registrationUserDto){
         User user = new User();
         user.setEmail(registrationUserDto.getEmail());
         user.setName(registrationUserDto.getName());
         user.setPermissions(permission.getPermissionById(1L));
         user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
-        return userImpl.addUser(user);
+        return userMapper.toDto(userImpl.addUser(user));
     }
 
     public String authUser(AuthRequest authRequest){
@@ -77,7 +82,7 @@ public class UserService implements UserDetailsService {
         assert userDetails != null;
         return jwtTokenUtils.generateToken(userDetails);
     }
-    public User getProfile(String token){
-        return userImpl.getUserByEmail(jwtTokenUtils.extractUsername(token));
+    public UserDto getProfile(String token){
+        return userMapper.toDto(userImpl.getUserByEmail(jwtTokenUtils.extractUsername(token)));
     }
 }

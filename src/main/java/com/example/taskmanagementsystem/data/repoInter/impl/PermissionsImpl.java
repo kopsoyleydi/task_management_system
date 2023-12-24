@@ -24,7 +24,9 @@ public class PermissionsImpl implements PermissionsRepoInter {
         return permissionRepository.findAll();
     }
 
-    public Permissions getPermissionByRole(String role){
-        return permissionRepository.findByRole(role);
+    @Override
+    public Permissions addPermission(Permissions permissions) {
+        return permissionRepository.save(permissions);
     }
+
 }

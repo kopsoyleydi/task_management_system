@@ -9,4 +9,6 @@ public interface PermissionsRepoInter {
     List<Permissions> getPermissionById(Long id);
 
     List<Permissions> getAllPermissions();
+
+    Permissions addPermission(Permissions permissions);
 }

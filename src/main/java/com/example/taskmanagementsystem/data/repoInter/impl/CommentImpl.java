@@ -7,6 +7,8 @@ import com.example.taskmanagementsystem.models.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CommentImpl implements CommentRepoInter {
@@ -25,5 +27,10 @@ public class CommentImpl implements CommentRepoInter {
     @Override
     public void deleteCommentById(Long commentId) {
 
+    }
+
+    @Override
+    public List<Comment> getAllCommentByTaskId(Long id) {
+        return null;
     }
 }
