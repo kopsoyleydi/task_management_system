@@ -6,6 +6,7 @@ import com.example.taskmanagementsystem.dto.response.CommonResponse;
 import com.example.taskmanagementsystem.dto.response.TaskDto;
 import com.example.taskmanagementsystem.models.Task;
 import com.example.taskmanagementsystem.service.TaskService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +24,12 @@ public class TaskRest {
     }
 
     @PutMapping(value = "/updateTask")
-    public CommonResponse updateTask(@RequestBody TaskDto taskDto, @RequestHeader String token){
+    public CommonResponse updateTask(@RequestBody TaskDto taskDto, @RequestHeader("Authorization") String token){
         return taskService.changeTask(taskDto, token);
     }
 
     @DeleteMapping("/delete/{taskId}")
-    public CommonResponse deleteTaskById(@PathVariable Long taskId, @RequestHeader String token){
+    public CommonResponse deleteTaskById(@PathVariable Long taskId,  @RequestHeader("Authorization") String token){
         return taskService.deleteTaskById(taskId, token);
     }
 

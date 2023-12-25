@@ -22,7 +22,7 @@ public class CommentMapper {
         commentDto.setId(comment.getId());
         commentDto.setMessage(comment.getMessage());
         commentDto.setTask(taskMapper.toTaskDto(comment.getTask()));
-        commentDto.setUser(userMapper.toUserDto(comment.getUser()));
+        commentDto.setUser(userMapper.toUserDto(comment.getUser_id()));
         commentDto.setCreatedAt(comment.getCreatedAt());
         return commentDto;
     }
@@ -32,7 +32,7 @@ public class CommentMapper {
         comment.setId(commentDto.getId());
         comment.setMessage(commentDto.getMessage());
         comment.setTask(taskMapper.toTask(commentDto.getTask()));
-        comment.setUser(userMapper.toUser(commentDto.getUser()));
+        comment.setUser_id(userMapper.toUser(commentDto.getUser()));
         comment.setCreatedAt(commentDto.getCreatedAt());
         return comment;
     }

@@ -21,7 +21,7 @@ public class UserMapper {
         userDto.setName(user.getName());
         userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPassword());
-        userDto.setPermissions(permissionMapper.toDtoList(user.getPermissions()));
+        userDto.setPermissions(permissionMapper.toDtoList(user.getPermission()));
         return userDto;
     }
 
@@ -31,7 +31,7 @@ public class UserMapper {
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
-        user.setPermissions(permissionMapper.toModelList(userDto.getPermissions()));
+        user.setPermission(permissionMapper.toModelList(userDto.getPermissions()));
         return user;
     }
 

@@ -3,9 +3,7 @@ package com.example.taskmanagementsystem.models;
 
 import com.example.taskmanagementsystem.utils.LocalDateTimeConverter;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -20,14 +18,11 @@ public class Comment extends BaseModel{
     private String message;
 
     @ManyToOne
-    @JoinColumn(name = "task_id")
     private Task task;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private User user_id;
 
-    @Column(name = "created_at", updatable = false)
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime createdAt;
 

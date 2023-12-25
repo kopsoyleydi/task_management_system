@@ -41,7 +41,7 @@ public class CommentService {
 
     public CommonResponse changeComment(CommentDto commentDto, String token){
         String initEmail = commentDto.getUser().getEmail();
-        String email = jwtTokenUtils.extractUsername(token);
+        String email = jwtTokenUtils.extractUsername(extractToken(token));
         try {
             if(initEmail.equals(email)){
                 return CommonResponse.builder()
@@ -53,7 +53,7 @@ public class CommentService {
             else {
                 return CommonResponse.builder()
                         .message("You dont change this comment")
-                        .status(HttpStatus.CREATED)
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .build();
             }
 
@@ -71,8 +71,8 @@ public class CommentService {
     }
 
     public CommonResponse deleteCommentById(Long commentId, String token){
-        String initEmail = comment.getCommentById(commentId).getUser().getEmail();
-        String email = jwtTokenUtils.extractUsername(token);
+        String initEmail = comment.getCommentById(commentId).getUser_id().getEmail();
+        String email = jwtTokenUtils.extractUsername(extractToken(token));
         try {
             if(initEmail.equals(email)){
                 comment.deleteCommentById(commentId);
@@ -93,5 +93,13 @@ public class CommentService {
                     .build();
         }
 
+    }
+
+
+    private String extractToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7); // Убираем "Bearer " из строки
+        }
+        return null;
     }
 }

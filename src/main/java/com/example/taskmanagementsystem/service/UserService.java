@@ -73,7 +73,7 @@ public class UserService implements UserDetailsService {
             User user = new User();
             user.setEmail(registrationUserDto.getEmail());
             user.setName(registrationUserDto.getName());
-            user.setPermissions(permission.getPermissionById(1L));
+            user.setPermission(permission.getPermissionById(1L));
             user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
             UserDto userDto = userMapper.toUserDto(userImpl.addUser(user));
             return CommonResponse.builder()

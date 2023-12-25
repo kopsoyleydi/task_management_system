@@ -4,9 +4,7 @@ package com.example.taskmanagementsystem.models;
 import com.example.taskmanagementsystem.models.enums.TaskPriority;
 import com.example.taskmanagementsystem.models.enums.TaskStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -30,7 +28,6 @@ public class Task extends BaseModel{
     @Column(name = "priority")
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
-
 
     @ManyToOne
     private User author;

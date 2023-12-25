@@ -26,13 +26,13 @@ public class CommentRest {
     }
 
     @PutMapping(value = "/updateComment")
-    public CommonResponse updateComment(@RequestBody CommentDto commentDto, HttpServletRequest request){
-        return commentService.changeComment(commentDto, request.getHeader("Authorization"));
+    public CommonResponse updateComment(@RequestBody CommentDto commentDto, @RequestHeader("Authorization") String token){
+        return commentService.changeComment(commentDto, token);
     }
 
     @DeleteMapping(value = "/deleteComment/{commentId}")
-    public CommonResponse deleteComment(@PathVariable Long commentId, HttpServletRequest request){
-        return commentService.deleteCommentById(commentId, request.getHeader("Authorization"));
+    public CommonResponse deleteComment(@PathVariable Long commentId, @RequestHeader("Authorization") String token){
+        return commentService.deleteCommentById(commentId, token);
     }
 
     @GetMapping(value = "/getAllCommentByTask")

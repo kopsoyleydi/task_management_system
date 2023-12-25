@@ -42,7 +42,7 @@ public class TaskService {
     public CommonResponse changeTask(TaskDto taskDto, String token){
         try {
             String email = taskDto.getAuthor().getEmail();
-            String initEmail = jwtTokenUtils.extractUsername(token);
+            String initEmail = jwtTokenUtils.extractUsername(extractToken(token));
             if(initEmail.equals(email)){
                 return CommonResponse.builder()
                         .data(taskMapper.toTaskDto(task.changeTask(taskMapper.toTask(taskDto))))
@@ -53,7 +53,7 @@ public class TaskService {
             else {
                 return CommonResponse.builder()
                         .message("You dont change this task")
-                        .status(HttpStatus.CREATED)
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .build();
             }
 
@@ -71,7 +71,7 @@ public class TaskService {
     }
 
     public CommonResponse deleteTaskById(Long id, String token){
-        String initEmail = jwtTokenUtils.extractUsername(token);
+        String initEmail = jwtTokenUtils.extractUsername(extractToken(token));
         String email = task.getTaskById(id).getAuthor().getEmail();
         try {
             if(email.equals(initEmail)){
@@ -94,5 +94,12 @@ public class TaskService {
                     .build();
         }
 
+    }
+
+    private String extractToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7); // Убираем "Bearer " из строки
+        }
+        return null;
     }
 }
