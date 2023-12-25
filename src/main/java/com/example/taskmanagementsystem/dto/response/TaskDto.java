@@ -1,8 +1,7 @@
 package com.example.taskmanagementsystem.dto.response;
 
 
-import com.example.taskmanagementsystem.models.Comment;
-import com.example.taskmanagementsystem.models.User;
+
 import com.example.taskmanagementsystem.models.enums.TaskPriority;
 import com.example.taskmanagementsystem.models.enums.TaskStatus;
 import jakarta.persistence.*;
