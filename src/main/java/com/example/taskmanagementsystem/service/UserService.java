@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDto findByUsername(String username) {
-        return userMapper.toDto(userImpl.getUserByEmail(username));
+        return userMapper.toUserDto(userImpl.getUserByEmail(username));
     }
 
     public CommonResponse createNewUser(RegistrationUserDto registrationUserDto){
@@ -75,8 +75,9 @@ public class UserService implements UserDetailsService {
             user.setName(registrationUserDto.getName());
             user.setPermissions(permission.getPermissionById(1L));
             user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
+            UserDto userDto = userMapper.toUserDto(userImpl.addUser(user));
             return CommonResponse.builder()
-                    .data(userMapper.toDto(userImpl.addUser(user)))
+                    .data(userDto)
                     .message("Registration success")
                     .status(HttpStatus.CREATED)
                     .build();
@@ -107,7 +108,7 @@ public class UserService implements UserDetailsService {
         }
     }
     public UserDto getProfile(String token){
-        return userMapper.toDto(userImpl.getUserByEmail(jwtTokenUtils.extractUsername(token)));
+        return userMapper.toUserDto(userImpl.getUserByEmail(jwtTokenUtils.extractUsername(token)));
     }
 
     public Page<User> getAllUsers(int page){

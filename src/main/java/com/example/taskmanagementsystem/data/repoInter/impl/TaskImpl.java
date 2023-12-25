@@ -35,4 +35,11 @@ public class TaskImpl implements TaskRepoInter{
         Pageable pageable = Pageable.ofSize(size);
         return taskRepository.getTasksByUser(userEmail, pageable);
     }
+
+    @Override
+    public Task getTaskById(Long id) {
+        return taskRepository.findAllById(id);
+    }
+
+
 }

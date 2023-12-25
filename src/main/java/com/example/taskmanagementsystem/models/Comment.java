@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 @Table(name = "comments")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Comment extends BaseModel{
 
     @Column(name = "message")

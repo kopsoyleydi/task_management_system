@@ -23,13 +23,13 @@ public class TaskRest {
     }
 
     @PutMapping(value = "/updateTask")
-    public CommonResponse updateTask(@RequestBody TaskDto taskDto){
-        return taskService.changeTask(taskDto);
+    public CommonResponse updateTask(@RequestBody TaskDto taskDto, @RequestHeader String token){
+        return taskService.changeTask(taskDto, token);
     }
 
     @DeleteMapping("/delete/{taskId}")
-    public CommonResponse deleteTaskById(@PathVariable Long taskId){
-        return taskService.deleteTaskById(taskId);
+    public CommonResponse deleteTaskById(@PathVariable Long taskId, @RequestHeader String token){
+        return taskService.deleteTaskById(taskId, token);
     }
 
     @GetMapping("/getTaskByUser")

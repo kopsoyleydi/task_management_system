@@ -15,7 +15,7 @@ public class PermissionService {
 
     private final PermissionsImpl permissions;
 
-    private PermissionMapper permissionMapper;
+    private final PermissionMapper permissionMapper;
 
     public PermissionDto addNewPermission(PermissionDto permissionDto){
         return permissionMapper

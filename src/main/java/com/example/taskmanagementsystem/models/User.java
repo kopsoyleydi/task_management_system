@@ -16,8 +16,6 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class User extends BaseModel implements UserDetails {
 
     @Column(name = "name")

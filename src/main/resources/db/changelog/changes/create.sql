@@ -12,7 +12,7 @@ CREATE TABLE permission (
 );
 
 
-CREATE TABLE user_permissions (
+CREATE TABLE users_permissions (
                                   user_id BIGINT,
                                   permission_id BIGINT,
                                   PRIMARY KEY (user_id, permission_id),

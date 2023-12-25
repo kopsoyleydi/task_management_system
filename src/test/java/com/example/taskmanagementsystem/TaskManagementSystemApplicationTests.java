@@ -32,7 +32,7 @@ class TaskManagementSystemApplicationTests {
 		task.setStatus(TaskStatus.TODO);
 		task.setPriority(TaskPriority.HIGH);
 
-		TaskDto taskDto = taskMapper.toDto(task);
+		TaskDto taskDto = taskMapper.toTaskDto(task);
 
 		assertEquals(task.getId(), taskDto.getId());
 		assertEquals(task.getTitle(), taskDto.getTitle());
@@ -52,7 +52,7 @@ class TaskManagementSystemApplicationTests {
 		taskDto.setPriority(TaskPriority.HIGH);
 
 
-		Task task = taskMapper.toModel(taskDto);
+		Task task = taskMapper.toTask(taskDto);
 
 
 		assertEquals(taskDto.getId(), task.getId());
@@ -81,7 +81,7 @@ class TaskManagementSystemApplicationTests {
 
 		List<Task> taskList = Arrays.asList(task1, task2);
 
-		List<TaskDto> taskDtoList = taskMapper.toDtoList(taskList);
+		List<TaskDto> taskDtoList = taskMapper.toTaskDtoList(taskList);
 
 		assertEquals(taskList.size(), taskDtoList.size());
 	}
@@ -107,7 +107,7 @@ class TaskManagementSystemApplicationTests {
 		List<TaskDto> taskDtoList = Arrays.asList(taskDto1, taskDto2);
 
 
-		List<Task> taskList = taskMapper.toModelList(taskDtoList);
+		List<Task> taskList = taskMapper.toTaskList(taskDtoList);
 
 
 		assertEquals(taskDtoList.size(), taskList.size());

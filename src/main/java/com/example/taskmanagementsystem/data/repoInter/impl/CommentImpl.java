@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +27,17 @@ public class CommentImpl implements CommentRepoInter {
 
     @Override
     public void deleteCommentById(Long commentId) {
-
+        commentRepository.deleteById(commentId);
     }
 
     @Override
     public Page<Comment> getAllCommentByTaskId(Long id, int size) {
         Pageable pageable = Pageable.ofSize(size);
         return commentRepository.getAllByTaskId(id, pageable);
+    }
+
+    @Override
+    public Comment getCommentById(Long id) {
+        return commentRepository.findAllById(id);
     }
 }

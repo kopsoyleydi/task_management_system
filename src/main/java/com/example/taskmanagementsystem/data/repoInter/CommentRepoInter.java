@@ -13,4 +13,6 @@ public interface CommentRepoInter {
     void deleteCommentById(Long commentId);
 
     Page<Comment> getAllCommentByTaskId(Long id, int size);
+
+    Comment getCommentById(Long id);
 }

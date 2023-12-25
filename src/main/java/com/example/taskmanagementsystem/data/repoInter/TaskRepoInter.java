@@ -13,4 +13,7 @@ public interface TaskRepoInter {
 
     Page<Task> getAllTasksByUserEmail(String userEmail, int size);
 
+    Task getTaskById(Long id);
+
+
 }

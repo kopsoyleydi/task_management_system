@@ -6,12 +6,12 @@ import com.example.taskmanagementsystem.dto.response.CommonResponse;
 import com.example.taskmanagementsystem.dto.response.TaskDto;
 import com.example.taskmanagementsystem.mapper.TaskMapper;
 import com.example.taskmanagementsystem.models.Task;
+import com.example.taskmanagementsystem.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,13 +19,15 @@ public class TaskService {
 
     private final TaskImpl task;
 
+    private final JwtTokenUtils jwtTokenUtils;
+
     private final TaskMapper taskMapper;
 
     public CommonResponse addNewTask(TaskDto taskDto){
         try {
             return CommonResponse.builder()
                     .message("Task added success")
-                    .data(taskMapper.toDto(task.addTask(taskMapper.toModel(taskDto))))
+                    .data(taskMapper.toTaskDto(task.addTask(taskMapper.toTask(taskDto))))
                     .status(HttpStatus.CREATED)
                     .build();
         }
@@ -37,13 +39,24 @@ public class TaskService {
         }
     }
 
-    public CommonResponse changeTask(TaskDto taskDto){
+    public CommonResponse changeTask(TaskDto taskDto, String token){
         try {
-            return CommonResponse.builder()
-                    .data(taskMapper.toDto(task.changeTask(taskMapper.toModel(taskDto))))
-                    .message("Task changed success")
-                    .status(HttpStatus.CREATED)
-                    .build();
+            String email = taskDto.getAuthor().getEmail();
+            String initEmail = jwtTokenUtils.extractUsername(token);
+            if(initEmail.equals(email)){
+                return CommonResponse.builder()
+                        .data(taskMapper.toTaskDto(task.changeTask(taskMapper.toTask(taskDto))))
+                        .message("Task changed success")
+                        .status(HttpStatus.CREATED)
+                        .build();
+            }
+            else {
+                return CommonResponse.builder()
+                        .message("You dont change this task")
+                        .status(HttpStatus.CREATED)
+                        .build();
+            }
+
         }
         catch (Exception e){
             return CommonResponse.builder()
@@ -57,12 +70,22 @@ public class TaskService {
         return task.getAllTasksByUserEmail(email, size);
     }
 
-    public CommonResponse deleteTaskById(Long id){
+    public CommonResponse deleteTaskById(Long id, String token){
+        String initEmail = jwtTokenUtils.extractUsername(token);
+        String email = task.getTaskById(id).getAuthor().getEmail();
         try {
-            task.deleteTaskById(id);
-            return CommonResponse.builder()
-                    .message("Success")
-                    .build();
+            if(email.equals(initEmail)){
+                task.deleteTaskById(id);
+                return CommonResponse.builder()
+                        .message("Success")
+                        .build();
+            }
+            else {
+                return CommonResponse.builder()
+                        .message("You dont delete this task")
+                        .build();
+            }
+
         }
         catch (Exception e){
             return CommonResponse.builder()

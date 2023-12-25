@@ -15,8 +15,6 @@ import java.util.List;
 @Table(name = "tasks")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Task extends BaseModel{
 
     @Column(name = "title")

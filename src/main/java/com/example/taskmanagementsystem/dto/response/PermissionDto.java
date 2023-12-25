@@ -9,6 +9,7 @@ import lombok.Setter;
 public class PermissionDto {
 
     private Long id;
+
     private String role;
 
 }

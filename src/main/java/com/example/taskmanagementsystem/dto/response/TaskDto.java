@@ -2,6 +2,7 @@ package com.example.taskmanagementsystem.dto.response;
 
 
 
+import com.example.taskmanagementsystem.models.User;
 import com.example.taskmanagementsystem.models.enums.TaskPriority;
 import com.example.taskmanagementsystem.models.enums.TaskStatus;
 import jakarta.persistence.*;
@@ -20,15 +21,9 @@ public class TaskDto {
 
     private String description;
 
-    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
-    @Enumerated(EnumType.STRING)
     private TaskPriority priority;
-
-    @JoinColumn(name = "task_id")
-    @OneToMany
-    private List<CommentDto> comment;
 
     @ManyToOne
     private UserDto author;

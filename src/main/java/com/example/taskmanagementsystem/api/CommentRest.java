@@ -6,9 +6,12 @@ import com.example.taskmanagementsystem.dto.response.CommentDto;
 import com.example.taskmanagementsystem.dto.response.CommonResponse;
 import com.example.taskmanagementsystem.models.Comment;
 import com.example.taskmanagementsystem.service.CommentService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.http.HttpRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,13 +26,13 @@ public class CommentRest {
     }
 
     @PutMapping(value = "/updateComment")
-    public CommonResponse updateComment(@RequestBody CommentDto commentDto){
-        return commentService.changeComment(commentDto);
+    public CommonResponse updateComment(@RequestBody CommentDto commentDto, HttpServletRequest request){
+        return commentService.changeComment(commentDto, request.getHeader("Authorization"));
     }
 
     @DeleteMapping(value = "/deleteComment/{commentId}")
-    public CommonResponse deleteComment(@PathVariable Long commentId){
-        return commentService.deleteCommentById(commentId);
+    public CommonResponse deleteComment(@PathVariable Long commentId, HttpServletRequest request){
+        return commentService.deleteCommentById(commentId, request.getHeader("Authorization"));
     }
 
     @GetMapping(value = "/getAllCommentByTask")
