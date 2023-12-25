@@ -19,19 +19,43 @@ public class CommentService {
 
     private final CommentMapper commentMapper;
 
-    public CommentDto addComment(CommentDto commentDto){
-        return commentMapper.toDto(comment.addCommentToTask(commentMapper.toModel(commentDto)));
+    public CommonResponse addComment(CommentDto commentDto){
+        try {
+            return CommonResponse.builder()
+                    .data(commentMapper.toDto(comment.addCommentToTask(commentMapper.toModel(commentDto))))
+                    .message("Comment added success")
+                    .status(HttpStatus.CREATED)
+                    .build();
+        }
+        catch (Exception e){
+            return CommonResponse.builder()
+                    .message("An error occurred while adding a comment")
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .build();
+        }
     }
 
-    public CommentDto changeComment(CommentDto commentDto){
-        return commentMapper.toDto(comment.changeComment(commentMapper.toModel(commentDto)));
+    public CommonResponse changeComment(CommentDto commentDto){
+        try {
+            return CommonResponse.builder()
+                    .data(commentMapper.toDto(comment.changeComment(commentMapper.toModel(commentDto))))
+                    .message("Comment added success")
+                    .status(HttpStatus.CREATED)
+                    .build();
+        }
+        catch (Exception e){
+            return CommonResponse.builder()
+                    .message("An error occurred while updating a comment")
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .build();
+        }
     }
 
     public List<CommentDto> getCommentByTaskId(Long taskId){
         return commentMapper.toDtoList(comment.getAllCommentByTaskId(taskId));
     }
 
-    public CommonResponse deleteTaskById(Long commentId){
+    public CommonResponse deleteCommentById(Long commentId){
         try {
             comment.deleteCommentById(commentId);
             return CommonResponse.builder()

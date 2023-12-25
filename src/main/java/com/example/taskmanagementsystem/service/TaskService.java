@@ -19,12 +19,36 @@ public class TaskService {
 
     private final TaskMapper taskMapper;
 
-    public TaskDto addNewTask(TaskDto taskDto){
-        return taskMapper.toDto(task.addTask(taskMapper.toModel(taskDto)));
+    public CommonResponse addNewTask(TaskDto taskDto){
+        try {
+            return CommonResponse.builder()
+                    .message("Task added success")
+                    .data(taskMapper.toDto(task.addTask(taskMapper.toModel(taskDto))))
+                    .status(HttpStatus.CREATED)
+                    .build();
+        }
+        catch (Exception e){
+            return CommonResponse.builder()
+                    .message("Something went wrong")
+                    .status(HttpStatus.NOT_MODIFIED)
+                    .build();
+        }
     }
 
-    public TaskDto changeTask(TaskDto taskDto){
-        return taskMapper.toDto(task.changeTask(taskMapper.toModel(taskDto)));
+    public CommonResponse changeTask(TaskDto taskDto){
+        try {
+            return CommonResponse.builder()
+                    .data(taskMapper.toDto(task.changeTask(taskMapper.toModel(taskDto))))
+                    .message("Task changed success")
+                    .status(HttpStatus.CREATED)
+                    .build();
+        }
+        catch (Exception e){
+            return CommonResponse.builder()
+                    .message("Something went wrong")
+                    .status(HttpStatus.NOT_MODIFIED)
+                    .build();
+        }
     }
 
     public List<TaskDto> getAllTaskByUserEmail(String email){

@@ -5,11 +5,13 @@ import com.example.taskmanagementsystem.data.repoInter.impl.PermissionsImpl;
 import com.example.taskmanagementsystem.data.repoInter.impl.UserImpl;
 import com.example.taskmanagementsystem.dto.request.AuthRequest;
 import com.example.taskmanagementsystem.dto.request.RegistrationUserDto;
+import com.example.taskmanagementsystem.dto.response.CommonResponse;
 import com.example.taskmanagementsystem.dto.response.UserDto;
 import com.example.taskmanagementsystem.mapper.UserMapper;
 import com.example.taskmanagementsystem.models.User;
 import com.example.taskmanagementsystem.utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -63,24 +65,43 @@ public class UserService implements UserDetailsService {
         return userMapper.toDto(userImpl.getUserByEmail(username));
     }
 
-    public UserDto createNewUser(RegistrationUserDto registrationUserDto){
-        User user = new User();
-        user.setEmail(registrationUserDto.getEmail());
-        user.setName(registrationUserDto.getName());
-        user.setPermissions(permission.getPermissionById(1L));
-        user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
-        return userMapper.toDto(userImpl.addUser(user));
+    public CommonResponse createNewUser(RegistrationUserDto registrationUserDto){
+        try {
+            User user = new User();
+            user.setEmail(registrationUserDto.getEmail());
+            user.setName(registrationUserDto.getName());
+            user.setPermissions(permission.getPermissionById(1L));
+            user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
+            return CommonResponse.builder()
+                    .data(userMapper.toDto(userImpl.addUser(user)))
+                    .message("Registration success")
+                    .status(HttpStatus.CREATED)
+                    .build();
+        }
+        catch (Exception e){
+            return CommonResponse.builder()
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .message("Something went wrong")
+                    .build();
+        }
+
     }
 
-    public String authUser(AuthRequest authRequest){
+    public CommonResponse authUser(AuthRequest authRequest){
         UserDetails userDetails = null;
         try {
             userDetails = loadUserByUsername(authRequest.getEmail());
+            return CommonResponse.builder()
+                    .data(jwtTokenUtils
+                            .generateToken(userDetails))
+                    .message("Auth success")
+                    .status(HttpStatus.OK).build();
         }catch (Exception e){
-            e.printStackTrace();
+            assert userDetails != null;
+            return CommonResponse.builder()
+                    .message("Auth success")
+                    .status(HttpStatus.OK).build();
         }
-        assert userDetails != null;
-        return jwtTokenUtils.generateToken(userDetails);
     }
     public UserDto getProfile(String token){
         return userMapper.toDto(userImpl.getUserByEmail(jwtTokenUtils.extractUsername(token)));
