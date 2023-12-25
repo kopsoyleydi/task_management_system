@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 @Setter
 public class CommentDto {
 
+    private Long id;
+
     private String message;
 
     @ManyToOne

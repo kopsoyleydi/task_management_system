@@ -14,6 +14,8 @@ import java.util.List;
 @Getter
 public class TaskDto {
 
+    private Long id;
+
     private String title;
 
     private String description;

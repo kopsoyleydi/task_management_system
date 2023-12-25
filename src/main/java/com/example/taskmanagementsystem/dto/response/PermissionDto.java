@@ -7,6 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PermissionDto {
+
+    private Long id;
     private String role;
 
 }

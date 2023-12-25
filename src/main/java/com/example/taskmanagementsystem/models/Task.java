@@ -33,9 +33,6 @@ public class Task extends BaseModel{
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
 
-    @JoinColumn(name = "task_id")
-    @OneToMany
-    private List<Comment> comment;
 
     @ManyToOne
     private User author;
