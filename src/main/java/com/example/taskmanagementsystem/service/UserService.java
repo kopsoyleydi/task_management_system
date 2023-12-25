@@ -11,6 +11,8 @@ import com.example.taskmanagementsystem.mapper.UserMapper;
 import com.example.taskmanagementsystem.models.User;
 import com.example.taskmanagementsystem.utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 
 @Service
@@ -105,5 +108,10 @@ public class UserService implements UserDetailsService {
     }
     public UserDto getProfile(String token){
         return userMapper.toDto(userImpl.getUserByEmail(jwtTokenUtils.extractUsername(token)));
+    }
+
+    public Page<User> getAllUsers(int page){
+        Pageable pageable = Pageable.ofSize(page);
+        return userImpl.getAllUsers(pageable);
     }
 }

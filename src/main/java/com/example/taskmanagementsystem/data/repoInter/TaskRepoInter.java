@@ -1,8 +1,7 @@
 package com.example.taskmanagementsystem.data.repoInter;
 
 import com.example.taskmanagementsystem.models.Task;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface TaskRepoInter {
 
@@ -12,6 +11,6 @@ public interface TaskRepoInter {
 
     void deleteTaskById(Long id);
 
-    List<Task> getAllTasksByUserEmail(String userEmail);
+    Page<Task> getAllTasksByUserEmail(String userEmail, int size);
 
 }

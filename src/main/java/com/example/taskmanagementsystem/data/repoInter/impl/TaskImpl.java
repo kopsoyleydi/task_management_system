@@ -5,9 +5,9 @@ import com.example.taskmanagementsystem.data.repo.TaskRepository;
 import com.example.taskmanagementsystem.data.repoInter.TaskRepoInter;
 import com.example.taskmanagementsystem.models.Task;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +31,8 @@ public class TaskImpl implements TaskRepoInter{
     }
 
     @Override
-    public List<Task> getAllTasksByUserEmail(String userEmail) {
-        return taskRepository.getTasksByUser(userEmail);
+    public Page<Task> getAllTasksByUserEmail(String userEmail, int size) {
+        Pageable pageable = Pageable.ofSize(size);
+        return taskRepository.getTasksByUser(userEmail, pageable);
     }
 }

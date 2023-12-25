@@ -1,10 +1,13 @@
 package com.example.taskmanagementsystem.api;
 
 
+import com.example.taskmanagementsystem.dto.request.PageComment;
 import com.example.taskmanagementsystem.dto.response.CommentDto;
 import com.example.taskmanagementsystem.dto.response.CommonResponse;
+import com.example.taskmanagementsystem.models.Comment;
 import com.example.taskmanagementsystem.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,6 +30,11 @@ public class CommentRest {
     @DeleteMapping(value = "/deleteComment/{commentId}")
     public CommonResponse deleteComment(@PathVariable Long commentId){
         return commentService.deleteCommentById(commentId);
+    }
+
+    @GetMapping(value = "/getAllCommentByTask")
+    public Page<Comment> getAllCommentByTask(@RequestBody PageComment pageComment){
+        return commentService.getCommentByTaskId(pageComment.getTaskId(), pageComment.getSize());
     }
 
 }

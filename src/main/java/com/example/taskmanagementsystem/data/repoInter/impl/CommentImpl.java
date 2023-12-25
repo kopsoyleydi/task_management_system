@@ -5,6 +5,8 @@ import com.example.taskmanagementsystem.data.repo.CommentRepository;
 import com.example.taskmanagementsystem.data.repoInter.CommentRepoInter;
 import com.example.taskmanagementsystem.models.Comment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +32,8 @@ public class CommentImpl implements CommentRepoInter {
     }
 
     @Override
-    public List<Comment> getAllCommentByTaskId(Long id) {
-        return null;
+    public Page<Comment> getAllCommentByTaskId(Long id, int size) {
+        Pageable pageable = Pageable.ofSize(size);
+        return commentRepository.getAllByTaskId(id, pageable);
     }
 }

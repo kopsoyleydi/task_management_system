@@ -1,8 +1,8 @@
 package com.example.taskmanagementsystem.data.repoInter;
 
 import com.example.taskmanagementsystem.models.Comment;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 
 public interface CommentRepoInter {
 
@@ -12,5 +12,5 @@ public interface CommentRepoInter {
 
     void deleteCommentById(Long commentId);
 
-    List<Comment> getAllCommentByTaskId(Long id);
+    Page<Comment> getAllCommentByTaskId(Long id, int size);
 }

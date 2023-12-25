@@ -5,7 +5,9 @@ import com.example.taskmanagementsystem.data.repoInter.impl.TaskImpl;
 import com.example.taskmanagementsystem.dto.response.CommonResponse;
 import com.example.taskmanagementsystem.dto.response.TaskDto;
 import com.example.taskmanagementsystem.mapper.TaskMapper;
+import com.example.taskmanagementsystem.models.Task;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +53,8 @@ public class TaskService {
         }
     }
 
-    public List<TaskDto> getAllTaskByUserEmail(String email){
-        return taskMapper.toDtoList(task.getAllTasksByUserEmail(email));
+    public Page<Task> getAllTaskByUserEmail(String email, int size){
+        return task.getAllTasksByUserEmail(email, size);
     }
 
     public CommonResponse deleteTaskById(Long id){

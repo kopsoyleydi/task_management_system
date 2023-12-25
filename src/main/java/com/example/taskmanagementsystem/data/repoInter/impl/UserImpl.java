@@ -4,6 +4,8 @@ import com.example.taskmanagementsystem.data.repo.UserRepository;
 import com.example.taskmanagementsystem.data.repoInter.UserRepoInter;
 import com.example.taskmanagementsystem.models.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +38,10 @@ public class UserImpl implements UserRepoInter {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
+    }
+
+    @Override
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }
