@@ -18,9 +18,9 @@
 и приоритет (например, "высокий", "средний", "низкий"), а также автора задачи и исполнителя. Реализовать необходимо только API.
 
 
-###End-Points - внутри swagger все описание.
+###End-Points - внутри swagger все описания.
 
-Сыылка на swagger:  http://localhost:8000/swagger-ui/index.html
+Ссылка на swagger:  http://localhost:8000/swagger-ui/index.html
 
 
 ## Technologies
@@ -44,7 +44,7 @@
 ###### Docker - чтобы все не конфигурировать и устанавливать
 ###### Думаю у разработчиков по большей вероятности есть Docker
 
-###### Lombok, Spring Data, Spring WEB, Spring, Swagger, 
+###### Lombok, Spring Data, Spring WEB, Spring, Swagger, Spring Security
 
 ###### Mapper: Можно было использовать MapStruct, предпочел написать все руками.
 
@@ -69,7 +69,7 @@
 #### №10. Поздравляю вы запустили проект на своей стороне:)
 
 ### Папка postman: внутри файл со всеми запросами на сервер
-#### Сервис по порту 9000, ссылка: `http://localhost:8000`
+#### Сервис по порту 8000, ссылка: `http://localhost:8000`
 
 ##### Примечание: nobeksultan в git ветке это я точнее GitHub аккаунт.
 
